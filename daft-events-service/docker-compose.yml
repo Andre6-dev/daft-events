@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres-service-daft-events:
+    container_name: postgres-service-daft-events
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: event_app_db
+      POSTGRES_USER: devandre
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+
+volumes:
+  postgres_data:
