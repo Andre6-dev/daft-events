@@ -33,7 +33,7 @@ import java.util.Set;
 public class UserJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_gen")
-    @SequenceGenerator(name = "users_id_gen", sequenceName = "user_management.users_user_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "users_id_gen", sequenceName = "users_user_id_seq", allocationSize = 1)
     @Column(name = "user_id")
     private Integer id;
 
@@ -98,6 +98,9 @@ public class UserJpaEntity {
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "is_two_factor_enabled")
+    private Boolean isTwoFactorEnabled = false;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_roles", schema = "user_management",

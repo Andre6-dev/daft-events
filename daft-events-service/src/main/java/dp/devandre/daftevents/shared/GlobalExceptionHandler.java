@@ -18,4 +18,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setTitle(ex.getClass().getName());
         return problemDetail;
     }
+
+    @ExceptionHandler(EntityExistsException.class)
+    public ProblemDetail handleEntityExistsException(EntityExistsException ex) {
+        log.error("Entity already exists", ex);
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        problemDetail.setTitle(ex.getClass().getName());
+        return problemDetail;
+    }
 }

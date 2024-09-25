@@ -27,6 +27,7 @@ public class UserMapper {
                 userJpaEntity.getEnabled(),
                 userJpaEntity.getNonLocked(),
                 userJpaEntity.getUsingMfa(),
+                userJpaEntity.getIsTwoFactorEnabled(),
                 userJpaEntity.getCreatedAt(),
                 userJpaEntity.getUpdatedAt(),
                 mapRolestoDomainEntities(userJpaEntity.getRoleJpaEntities())
@@ -52,6 +53,7 @@ public class UserMapper {
         userJpaEntity.setEnabled(user.getEnabled());
         userJpaEntity.setNonLocked(user.getNonLocked());
         userJpaEntity.setUsingMfa(user.getUsingMfa());
+        userJpaEntity.setIsTwoFactorEnabled(user.getIsTwoFactorEnabled());
         userJpaEntity.setCreatedAt(user.getCreatedAt());
         userJpaEntity.setUpdatedAt(user.getUpdatedAt());
         userJpaEntity.setRoleJpaEntities(mapRolestoJpaEntities(user.getRoles()));

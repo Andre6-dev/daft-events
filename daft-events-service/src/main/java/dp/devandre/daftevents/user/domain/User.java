@@ -26,6 +26,7 @@ public class User {
     private String enabled;
     private String nonLocked;
     private String usingMfa;
+    private Boolean isTwoFactorEnabled;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Set<Role> roles = new LinkedHashSet<>();
