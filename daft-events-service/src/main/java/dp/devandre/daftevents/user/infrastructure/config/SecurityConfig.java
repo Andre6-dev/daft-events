@@ -38,7 +38,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests)
                 -> requests
                 .requestMatchers("/api/v1/users/**").permitAll()
-                .requestMatchers("/api/v1/roles/**").permitAll()
+                .requestMatchers("/api/v1/authentication/**").permitAll()
                 .anyRequest().authenticated()
         );
         http.exceptionHandling(exception ->

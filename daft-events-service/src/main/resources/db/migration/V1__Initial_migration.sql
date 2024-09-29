@@ -22,9 +22,9 @@ CREATE TABLE user_management.users
     phone_number    VARCHAR(20),
     address         VARCHAR(255),
     profile_url     VARCHAR(255),
-    enabled         VARCHAR(255),
-    non_locked      VARCHAR(255),
-    using_mfa       VARCHAR(255),
+    enabled         BOOLEAN,
+    non_locked      BOOLEAN,
+    using_mfa       BOOLEAN,
     is_two_factor_enabled BOOLEAN DEFAULT FALSE,
     created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -37,9 +37,9 @@ CREATE TABLE user_management.user_roles
     PRIMARY KEY (user_id, role_id)
 );
 
-CREATE SEQUENCE IF NOT EXISTS user_management.roles_role_id_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS user_management.roles_role_id_seq START WITH 5 INCREMENT BY 1;
 
-CREATE SEQUENCE IF NOT EXISTS user_management.users_user_id_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS user_management.users_user_id_seq START WITH 11 INCREMENT BY 1;
 
 CREATE TABLE user_management.activation_codes
 (

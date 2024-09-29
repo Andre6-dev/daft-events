@@ -25,16 +25,18 @@ public class UserDetailsSecurityImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
+    private Boolean isActivated;
+
     private Boolean is2faEnabled;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsSecurityImpl(Integer id, String username, String email, String password,
-                           boolean is2faEnabled, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsSecurityImpl(Integer id, String username, String email, String password, Boolean isActivated, Boolean is2faEnabled, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.isActivated = isActivated;
         this.is2faEnabled = is2faEnabled;
         this.authorities = authorities;
     }
@@ -51,6 +53,7 @@ public class UserDetailsSecurityImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPasswordHash(),
+                user.getEnabled(),
                 user.getIsTwoFactorEnabled(),
                 List.of(authority)
         );
@@ -58,37 +61,37 @@ public class UserDetailsSecurityImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
 
     public boolean is2faEnabled() {

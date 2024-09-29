@@ -33,7 +33,7 @@ import java.util.Set;
 public class UserJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_gen")
-    @SequenceGenerator(name = "users_id_gen", sequenceName = "users_user_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "users_id_gen", sequenceName = "user_management.users_user_id_seq", initialValue = 11, allocationSize = 1)
     @Column(name = "user_id")
     private Integer id;
 
@@ -77,17 +77,13 @@ public class UserJpaEntity {
     @Column(name = "profile_url")
     private String profileUrl;
 
-    @Size(max = 255)
-    @Column(name = "enabled")
-    private String enabled;
+    private Boolean enabled;
 
-    @Size(max = 255)
     @Column(name = "non_locked")
-    private String nonLocked;
+    private Boolean nonLocked;
 
-    @Size(max = 255)
     @Column(name = "using_mfa")
-    private String usingMfa;
+    private Boolean usingMfa;
 
     @CreationTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
@@ -111,7 +107,7 @@ public class UserJpaEntity {
     public UserJpaEntity() {
     }
 
-    public UserJpaEntity(Integer id, String username, String email, String passwordHash, String firstName, String lastName, String documentNumber, String phoneNumber, String address, String profileUrl, String enabled, String nonLocked, String usingMfa, LocalDateTime createdAt, LocalDateTime updatedAt, Set<RoleJpaEntity> roleJpaEntities) {
+    public UserJpaEntity(Integer id, String username, String email, String passwordHash, String firstName, String lastName, String documentNumber, String phoneNumber, String address, String profileUrl, Boolean enabled, Boolean nonLocked, Boolean usingMfa, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean isTwoFactorEnabled, Set<RoleJpaEntity> roleJpaEntities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -127,6 +123,7 @@ public class UserJpaEntity {
         this.usingMfa = usingMfa;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isTwoFactorEnabled = isTwoFactorEnabled;
         this.roleJpaEntities = roleJpaEntities;
     }
 

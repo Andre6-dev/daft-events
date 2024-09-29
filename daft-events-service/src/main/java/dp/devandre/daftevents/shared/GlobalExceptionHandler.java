@@ -26,4 +26,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setTitle(ex.getClass().getName());
         return problemDetail;
     }
+
+    @ExceptionHandler({
+            InvalidCredentialsException.class,
+    })
+    public ProblemDetail handleInvalidCredentialsException(Exception ex) {
+        log.error("Invalid credentials", ex);
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+        problemDetail.setTitle(ex.getClass().getName());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ActivationCodeExpiredException.class)
+    public ProblemDetail handleActivationCodeExpiredException(ActivationCodeExpiredException ex) {
+        log.error("Activation code expired", ex);
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problemDetail.setTitle(ex.getClass().getName());
+        return problemDetail;
+    }
 }

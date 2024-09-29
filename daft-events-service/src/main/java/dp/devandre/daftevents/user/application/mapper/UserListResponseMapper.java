@@ -1,6 +1,6 @@
 package dp.devandre.daftevents.user.application.mapper;
 
-import dp.devandre.daftevents.user.application.dto.UserListResponse;
+import dp.devandre.daftevents.user.application.dto.response.UserListResponse;
 import dp.devandre.daftevents.user.domain.User;
 import dp.devandre.daftevents.user.infrastructure.persistence.mapper.UserMapper;
 import org.mapstruct.Mapper;

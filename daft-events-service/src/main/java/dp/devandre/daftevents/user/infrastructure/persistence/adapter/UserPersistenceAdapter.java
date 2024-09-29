@@ -5,7 +5,9 @@ import dp.devandre.daftevents.user.application.port.out.SaveUserPort;
 import dp.devandre.daftevents.user.domain.User;
 import dp.devandre.daftevents.shared.UserNotFoundException;
 import dp.devandre.daftevents.user.infrastructure.persistence.mapper.UserMapper;
+import dp.devandre.daftevents.user.infrastructure.persistence.model.UserJpaEntity;
 import dp.devandre.daftevents.user.infrastructure.persistence.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,6 +32,13 @@ public class UserPersistenceAdapter implements LoadUserPort, SaveUserPort {
     }
 
     @Override
+    public Optional<User> loadUserByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email)
+                .map(userMapper::mapToDomainEntity)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email)));
+    }
+
+    @Override
     public List<User> loadUsers() {
         return userRepository.findAll()
                 .stream()
@@ -39,11 +48,20 @@ public class UserPersistenceAdapter implements LoadUserPort, SaveUserPort {
 
     @Override
     public User saveUser(User user) {
-        return userMapper.mapToDomainEntity(userRepository.saveAndFlush(userMapper.mapToJpaEntity(user)));
+        UserJpaEntity userJpaEntity = userMapper.mapToJpaEntity(user);
+        userRepository.saveAndFlush(userJpaEntity);
+        return userMapper.mapToDomainEntity(userJpaEntity);
     }
 
     @Override
     public Boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
+
+    @Transactional
+    @Override
+    public void updateUserEnabledStatus(String email, boolean enabled) {
+        userRepository.updateUserEnabledStatus(email, enabled);
+    }
+
 }

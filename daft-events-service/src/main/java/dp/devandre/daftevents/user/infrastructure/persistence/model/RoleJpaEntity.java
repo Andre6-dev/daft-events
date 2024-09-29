@@ -23,7 +23,7 @@ import lombok.Setter;
 public class RoleJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_gen")
-    @SequenceGenerator(name = "roles_id_gen", sequenceName = "roles_role_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "roles_id_gen", sequenceName = "user_management.roles_role_id_seq", allocationSize = 1)
     @Column(name = "role_id")
     private Integer id;
 

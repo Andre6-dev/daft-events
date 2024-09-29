@@ -7,5 +7,7 @@ import java.util.Optional;
 
 public interface LoadUserPort {
     Optional<User> loadUser(Integer id);
+    Optional<User> loadUserByEmail(String email);
     List<User> loadUsers();
+    Boolean existsByEmail(String email);
 }

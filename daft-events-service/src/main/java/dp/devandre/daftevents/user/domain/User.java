@@ -1,6 +1,7 @@
 package dp.devandre.daftevents.user.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -23,9 +25,9 @@ public class User {
     private String phoneNumber;
     private String address;
     private String profileUrl;
-    private String enabled;
-    private String nonLocked;
-    private String usingMfa;
+    private Boolean enabled;
+    private Boolean nonLocked;
+    private Boolean usingMfa;
     private Boolean isTwoFactorEnabled;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

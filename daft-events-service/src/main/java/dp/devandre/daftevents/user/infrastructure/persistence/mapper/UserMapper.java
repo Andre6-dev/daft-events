@@ -4,6 +4,8 @@ import dp.devandre.daftevents.user.domain.Role;
 import dp.devandre.daftevents.user.domain.User;
 import dp.devandre.daftevents.user.infrastructure.persistence.model.RoleJpaEntity;
 import dp.devandre.daftevents.user.infrastructure.persistence.model.UserJpaEntity;
+import dp.devandre.daftevents.user.infrastructure.persistence.repository.RoleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -11,6 +13,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
+
+    private final RoleRepository roleRepository;
+
+    public UserMapper(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     public User mapToDomainEntity(UserJpaEntity userJpaEntity) {
         return new User(
@@ -40,7 +48,7 @@ public class UserMapper {
         }
 
         UserJpaEntity userJpaEntity = new UserJpaEntity();
-        userJpaEntity.setId(user.getId());
+//        userJpaEntity.setId(user.getId());
         userJpaEntity.setUsername(user.getUsername());
         userJpaEntity.setEmail(user.getEmail());
         userJpaEntity.setPasswordHash(user.getPassword());
@@ -56,7 +64,12 @@ public class UserMapper {
         userJpaEntity.setIsTwoFactorEnabled(user.getIsTwoFactorEnabled());
         userJpaEntity.setCreatedAt(user.getCreatedAt());
         userJpaEntity.setUpdatedAt(user.getUpdatedAt());
-        userJpaEntity.setRoleJpaEntities(mapRolestoJpaEntities(user.getRoles()));
+
+        Set<RoleJpaEntity> managedRoles = user.getRoles().stream()
+                .map(role -> roleRepository.findById(role.getId())
+                        .orElseThrow(() -> new EntityNotFoundException("Role not found with id: " + role.getId())))
+                .collect(Collectors.toSet());
+        userJpaEntity.setRoleJpaEntities(managedRoles);
 
         return userJpaEntity;
     }
@@ -68,16 +81,6 @@ public class UserMapper {
                         roleJpaEntity.getRoleName(),
                         roleJpaEntity.getPermission())
                 )
-                .collect(Collectors.toSet());
-    }
-
-    private Set<RoleJpaEntity> mapRolestoJpaEntities(Set<Role> roles) {
-        return roles.stream()
-                .map(role -> new RoleJpaEntity(
-                        role.getId(),
-                        role.getRoleName(),
-                        role.getPermission()
-                ))
                 .collect(Collectors.toSet());
     }
 }

@@ -5,4 +5,5 @@ import dp.devandre.daftevents.user.domain.User;
 public interface SaveUserPort {
     User saveUser(User user);
     Boolean existsByEmail(String email);
+    void updateUserEnabledStatus(String email, boolean enabled);
 }

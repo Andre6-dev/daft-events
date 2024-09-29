@@ -4,7 +4,7 @@ spring:
     name: event-app
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/event_app_db
+    url: jdbc:postgresql://127.0.0.1:5432/event_app_db
     username: devandre
     password: secret
     driver-class-name: org.postgresql.Driver
@@ -17,6 +17,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
     enabled: true
@@ -28,24 +29,37 @@ spring:
     zipkin:
       base-url: http://localhost:9411
 
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: "andregallegosq95@gmail.com"
+    password: "wrfn wzug utpz idye"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          ssl.trust: smtp.gmail.com
+
 server:
   port: 8088
 
 logging:
-#  pattern:
-#    console: "%d{yyyy-MM-dd HH:mm:ss} - %pid - ${spring.application.name} - %X{traceId:-} - %X{spanId:-} - %5p [%t] %-40.40logger{39} : %m%n%wex"
-#    file: "%d{yyyy-MM-dd HH:mm:ss} - %pid - ${spring.application.name} - %X{traceId:-} - %X{spanId:-} - %5p [%t] %-40.40logger{39} : %m%n%wex"
+  #  pattern:
+  #    console: "%d{yyyy-MM-dd HH:mm:ss} - %pid - ${spring.application.name} - %X{traceId:-} - %X{spanId:-} - %5p [%t] %-40.40logger{39} : %m%n%wex"
+  #    file: "%d{yyyy-MM-dd HH:mm:ss} - %pid - ${spring.application.name} - %X{traceId:-} - %X{spanId:-} - %5p [%t] %-40.40logger{39} : %m%n%wex"
   level:
-#    root: INFO
-#    org.springframework: INFO
+    #    root: INFO
+    #    org.springframework: INFO
     org.springframework.web: INFO
-#    org.springframework.security: INFO
+    #    org.springframework.security: INFO
     org.springframework.data: INFO
     org.hibernate: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-#  file:
-#    name: logs/event-app.log
+  #  file:
+  #    name: logs/event-app.log
   logback:
     rollingpolicy:
       max-file-size: 10MB
@@ -62,5 +76,5 @@ management:
 
 secret:
   app:
-    jwtSecret: "{cipher}AQCa9l1Zs2yhPiSfjIU9PYqGoXkuvSnfJhHdpa4pwnfg3AtKzNI4PCWHRTp+rNYk5sqHJY300XlYcWD2WAO5ONDoPAQbR/i+WN5+nMljv407rxMtyn8Fa/0e9ICII/OS9vB7x1l4kE0OKKBEJiEkdcbDQS+JfdJqRBV5HiQFQrjLpG525VddRkCbcW046Z1XlWQOaOrdDNP3hC8BWW8d+0AYTFdpIFrAeYQxpRf3dJWbEK2aUjxZUbHbgXlUiFkFhtaq22FpjKK9Vkl+TLhl1K0wTc54wPQD1Szb1Ap8UZRR5Vi1OArOCIRWeJvAKw5ktZmgKbBjfI34ba5m7VbiSrVDHBZxExNmk5mFK8nNx+vznMPOwcAn6sMRuXin4SPSbsUpvDAzR0hxJcfWnodxRMGWeFu76ctfykTTcxtmU0j7bVqYKK0ewTArATnR68PtF+4lCnaYHLMl99AxWNfza806"
+    jwtSecret: "AQCa9l1Zs2yhPiSfjIU9PYqGoXkuvSnfJhHdpa4pwnfg3AtKzNI4PCWHRTp+rNYk5sqHJY300XlYcWD2WAO5ONDoPAQbR/i+WN5+nMljv407rxMtyn8Fa/0e9ICII/OS9vB7x1l4kE0OKKBEJiEkdcbDQS+JfdJqRBV5HiQFQrjLpG525VddRkCbcW046Z1XlWQOaOrdDNP3hC8BWW8d+0AYTFdpIFrAeYQxpRf3dJWbEK2aUjxZUbHbgXlUiFkFhtaq22FpjKK9Vkl+TLhl1K0wTc54wPQD1Szb1Ap8UZRR5Vi1OArOCIRWeJvAKw5ktZmgKbBjfI34ba5m7VbiSrVDHBZxExNmk5mFK8nNx+vznMPOwcAn6sMRuXin4SPSbsUpvDAzR0hxJcfWnodxRMGWeFu76ctfykTTcxtmU0j7bVqYKK0ewTArATnR68PtF+4lCnaYHLMl99AxWNfza806"
     jwtExpirationMs: 86400000
