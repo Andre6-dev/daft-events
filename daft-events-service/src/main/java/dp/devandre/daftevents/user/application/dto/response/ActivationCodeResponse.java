@@ -1,4 +1,9 @@
 package dp.devandre.daftevents.user.application.dto.response;
 
-public record ActivationCodeResponse() {
+import lombok.Builder;
+
+@Builder
+public record ActivationCodeResponse(
+        String message
+) {
 }
